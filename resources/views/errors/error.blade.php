@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>404 Not Found</title>
+        <title>{!! $exception->getStatusCode() !!}</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Exo+2:100&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
         <style>
             html, body {
@@ -14,10 +14,10 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                color: #B0BEC5;
+                color: #333;
                 display: table;
                 font-weight: 100;
-                font-family: 'Lato';
+                font-family: 'Exo 2', sans-serif;
             }
 
             .container {
@@ -32,7 +32,12 @@
             }
 
             .title {
-                font-size: 72px;
+                font-size: 48px;
+                margin-bottom: 40px;
+            }
+
+            .message {
+                font-size: 24px;
                 margin-bottom: 40px;
             }
         </style>
@@ -40,7 +45,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">404 Not Found</div>
+                <div class="title">{!! $exception->getStatusCode() !!}</div>
+                <div class="message">{!! $exception->getMessage() !!}</div>
             </div>
         </div>
     </body>

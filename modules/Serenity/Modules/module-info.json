@@ -1,0 +1,13 @@
+{
+    "name": "serenity-modules",
+    "installed": true,
+    "protected": true,
+    "providers": [
+
+    ],
+    "files": [
+        "start.php"
+    ],
+    "installer": null,
+    "uninstaller": null
+}

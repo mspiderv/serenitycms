@@ -72,11 +72,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Login Background Image
+    | Login Configuration
     |--------------------------------------------------------------------------
     |
     */
-    'loginBackgroundImage' => 'gui/custom/img/login-bg.jpg',
+
+    'login' => [
+        'loginButtonState' => 'success',
+        'backgroundImage' => '/vendor/gui-adminlte/custom/img/login-bg.jpg',
+    ],
 
     /*
     |--------------------------------------------------------------------------
