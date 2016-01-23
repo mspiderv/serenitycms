@@ -1,0 +1,26 @@
+Co chcem spracovat na GUI
+=========================
+[1. modals]
+[2. datepicker, timepicker, sliders]
+[3. charts]
+4. add locale to elfinder
+5. add custom plugins (panels, positions) to ckeditor
+6. ked zavrem sidebar, aby zostal pri dalsom requeste zavrety a naopak (aby si zapamatal svoj stav)
+7. fix login background (adminlte)
+8. definition list
+9. vytvorit element "table-link"
+
+!!!   TODO: Validation Errors View (window.blade.php)   !!!
+
+Co chcem spracovat na CMS
+=========================
+modules
+auth (users, permissions, login, logout)
+typy premennych
+typy stranok
+stranky
+
+Co chcem spracovat na Modules
+=============================
+Validator + Co ak budu dva moduly s rovnakym menom ?
+[Artisan commands to manipulate with modules (install, uninstall, remove etc.)]

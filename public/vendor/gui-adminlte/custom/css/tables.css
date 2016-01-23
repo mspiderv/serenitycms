@@ -1,0 +1,48 @@
+.pre,
+.handle {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    color: #d3d2d3;
+    line-height: 20px;
+}
+
+.pre {
+}
+
+.handle {
+    cursor: pointer;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+tr:hover .handle {
+    color: #222;
+}
+
+.ui-sortable-unactive .handle {
+    opacity: 0.1;
+}
+
+/* Table links */
+.table-link {
+    display: inline-block;
+    margin-top: -8px;
+    margin-bottom: -8px;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 8px;
+    border-right: 1px solid #f4f4f4!important;
+}
+
+.table-link:hover {
+    background-color: #d2d6de;
+    color: #333;
+}
+
+.table-link:first-child {
+    margin-left: -8px;
+}
