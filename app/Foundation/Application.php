@@ -90,7 +90,7 @@ class Application extends LaravelApplication
      */
     public function adminRoutes($namespace, callable $callable)
     {
-        Route::group(['middleware' => ['web', \Serenity\Core\Http\Middleware\Authenticate::class], 'prefix' => $this->adminPrefix, 'namespace' => $namespace], function($router) use ($callable)
+        Route::group(['middleware' => ['web', 'admin.auth'], 'prefix' => $this->adminPrefix, 'namespace' => $namespace], function($router) use ($callable)
         {
             return $callable($router);
         });
@@ -128,7 +128,7 @@ class Application extends LaravelApplication
      */
     public function architectRoutes($namespace, callable $callable)
     {
-        Route::group(['middleware' => ['web', \Serenity\Core\Http\Middleware\Authenticate::class], 'prefix' => $this->architectPrefix, 'namespace' => $namespace], function($router) use ($callable)
+        Route::group(['middleware' => ['web', 'admin.auth'], 'prefix' => $this->architectPrefix, 'namespace' => $namespace], function($router) use ($callable)
         {
             return $callable($router);
         });
@@ -148,4 +148,5 @@ class Application extends LaravelApplication
             return $callable($router);
         });
     }
+
 }

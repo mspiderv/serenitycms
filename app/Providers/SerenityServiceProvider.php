@@ -14,11 +14,7 @@ class SerenityServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Create admin window
-        $this->app->instance('adminWindow', GUI::window());
-
-        // Create architect window
-        $this->app->instance('architectWindow', GUI::window());
+        require app_path('start.php');
     }
 
     /**
@@ -28,6 +24,10 @@ class SerenityServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Create admin window
+        $this->app->instance('adminWindow', GUI::window());
+
+        // Create architect window
+        $this->app->instance('architectWindow', GUI::window());
     }
 }

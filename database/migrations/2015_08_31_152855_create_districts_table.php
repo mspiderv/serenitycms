@@ -16,7 +16,7 @@ class CreateDistrictsTable extends Migration
             $table->increments('id');
             $table->smallInteger('order');
             $table->integer('region_id')->unsigned();
-            $table->foreign('region_id')->references('id')->on('regions');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->string('name', 255);
             $table->timestamps();
         });

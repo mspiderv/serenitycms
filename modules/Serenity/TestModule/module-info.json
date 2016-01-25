@@ -1,0 +1,11 @@
+{
+    "name": "serenity-test-module",
+    "installed": false,
+    "protected": false,
+    "providers": [],
+    "files": [
+        "start.php"
+    ],
+    "installer": "Serenity\\TestModule\\ModuleInstaller",
+    "uninstaller": "Serenity\\TestModule\\ModuleInstaller"
+}

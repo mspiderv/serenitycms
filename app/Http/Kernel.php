@@ -44,7 +44,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'admin.auth' => \Serenity\Http\Middleware\Authenticate::class,
+        'admin.guest' => \Serenity\Http\Middleware\RedirectIfAuthenticated::class,
+        //'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

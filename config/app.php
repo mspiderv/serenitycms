@@ -148,15 +148,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        /*
-         * Application Service Providers...
-         */
-        Serenity\Providers\AuthServiceProvider::class,
-        Serenity\Providers\EventServiceProvider::class,
-
-        /*
-         * Application Service Providers...
-         */
+        // HTML & Forms
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
 
@@ -170,7 +162,12 @@ return [
         // Orderable models
         Vitlabs\OrderableModel\Providers\OrderableModelServiceProvider::class,
 
-        // SerenityCMS
+        /*
+         * Serenity CMS Service Providers...
+         */
+        Serenity\Providers\AuthServiceProvider::class,
+        Serenity\Providers\EventServiceProvider::class,
+        Serenity\Providers\RouteServiceProvider::class,
         Serenity\Providers\SerenityServiceProvider::class,
 
         // Modules

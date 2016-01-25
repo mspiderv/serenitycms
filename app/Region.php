@@ -18,6 +18,13 @@ class Region extends Model implements OrderableModelContract
     protected $table = 'regions';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [ 'name' ]; 
+
+    /**
      * Get the districts for the region.
      */
     public function districts()
