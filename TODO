@@ -6,7 +6,7 @@ Co chcem spracovat na GUI
 4. add locale to elfinder
 5. add custom plugins (panels, positions) to ckeditor
 6. ked zavrem sidebar, aby zostal pri dalsom requeste zavrety a naopak (aby si zapamatal svoj stav)
-7. fix login background (adminlte)
+[DONE] 7. fix login background (adminlte)
 8. definition list
 9. vytvorit element "table-link"
 
@@ -14,11 +14,15 @@ Co chcem spracovat na GUI
 
 Co chcem spracovat na CMS
 =========================
-modules
-auth (users, permissions, login, logout)
-typy premennych
-typy stranok
-stranky
+CRUD
+ - translations, confirms, fully-customizable
+Content Types
+ - variable types
+Contents
+ - pages
+ - panels
+ - lists
+Looks
 
 Co chcem spracovat na Modules
 =============================
