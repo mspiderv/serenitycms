@@ -21,7 +21,7 @@ class Authenticate
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->route('admin.login');
+                return redirect()->guest(route('admin.login'));
             }
         }
 
