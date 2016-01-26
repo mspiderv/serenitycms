@@ -148,9 +148,10 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        // HTML & Forms
+        // Laravel
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
         // GUI
         Vitlabs\GUICore\Providers\GUICoreServiceProvider::class,
@@ -222,6 +223,7 @@ return [
         // Laravel
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Flash' => Laracasts\Flash\Flash::class,
 
         // Vitlabs
         'GUI'       => Vitlabs\GUICore\Facades\Generator::class,

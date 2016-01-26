@@ -27,7 +27,7 @@ return [
     |
     */
 
-    'layout' => '',
+    'layout' => 'fixed',
 
     /*
     |--------------------------------------------------------------------------
@@ -119,15 +119,16 @@ return [
         |--------------------------------------------------------------------------
         | Table Row HTML
         |--------------------------------------------------------------------------
+        | Row hadnle element must contains "handle" CSS class.
         |
         */
-        'rowHandle' => '<i class="ion-code handle"></i>',
+        'rowHandle' => '<i class="handle fa fa-arrows"></i>',
 
         /*
         |--------------------------------------------------------------------------
         | Table Row Level Icon HTML
         |--------------------------------------------------------------------------
-        | It should contain class 'pre'.
+        | Row hadnle element should contains "pre" CSS class.
         |
         */
         'rowLevel' => '<i class="pre fa fa-angle-right"></i>',

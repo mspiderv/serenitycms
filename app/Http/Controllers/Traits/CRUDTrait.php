@@ -1,9 +1,11 @@
 <?php
 
-namespace Serenity\Http\Controllers;
+namespace Serenity\Http\Controllers\Traits;
 
 use GUI;
 use Route;
+use Flash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Vitlabs\GUIAdmin\Contracts\Elements\TableContract;
 use Vitlabs\GUIAdmin\Contracts\Elements\BoxContract;
 use Vitlabs\GUIAdmin\Contracts\Elements\ButtonGroupContract;
@@ -205,6 +207,24 @@ trait CRUDTrait
         // Set title
         $this->title($this->getIndexTitle());
 
+        // Buttons
+        $buttonGroup = GUI::buttonGroup()
+            ->appendAttribute('style', 'padding-bottom: 20px;')
+            ->to($this->window);
+
+        // Add "Create" button
+        if ($this->isAllowedCreate())
+        {
+            $button = GUI::button("Create a new " . lcfirst($this->getEntitySingularName()), 'primary')
+                ->attr('href', $this->route('create'))
+                ->to($buttonGroup);
+
+            $this->customizeCreateButton($button);
+        }
+
+        // Customize button group
+        $this->customizeIndexButtonGroup($buttonGroup);
+
         // Box
         $box = GUI::box($this->getEntityPluralName())
             ->to($this->window);
@@ -246,22 +266,8 @@ trait CRUDTrait
             $this->generateSubRows($table, $row);
         }
 
-        // Buttons
-        $buttonGroup = GUI::buttonGroup()
-            ->to($this->window);
-
-        // Add "Create" button
-        if ($this->isAllowedCreate())
-        {
-            $button = GUI::button("Create", 'primary')
-                ->attr('href', $this->route('create'))
-                ->to($buttonGroup);
-
-            $this->customizeCreateButton($button);
-        }
-
-        // Customize button group
-        $this->customizeIndexButtonGroup($buttonGroup);
+        // Add buttons to page bottom
+        $buttonGroup->to($this->window);
 
         // Render window
         return $this->render();
@@ -341,6 +347,16 @@ trait CRUDTrait
     public function edit($id)
     {
         // TODO: check for existence
+        
+        try
+        {
+            $model = call_user_func($this->getModel() . '::findOrFail', $id);
+        }
+        catch (ModelNotFoundException $e)
+        {
+            Flash::error("Item with id [$id] does not exist.");
+            return $this->redirect('index');
+        }
 
         // Set title
         $this->title($this->getEditTitle());
@@ -383,7 +399,8 @@ trait CRUDTrait
     {
         if (call_user_func($this->getModel() . '::destroy', $id))
         {
-            // TODO: with message
+            Flash::success('Item has been successfuly deleted!');
+
             return back();
         }
         else
