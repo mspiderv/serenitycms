@@ -5,7 +5,7 @@ namespace Serenity\Http\Controllers\Admin;
 use GUI;
 use Serenity\Region;
 use Illuminate\Http\Request;
-use Serenity\Http\Controllers\CRUDTrait;
+use Serenity\Http\Controllers\Traits\CRUDTrait;
 use Vitlabs\GUIAdmin\Contracts\Elements\TableContract;
 use Vitlabs\GUIAdmin\Contracts\Elements\BoxContract;
 use Vitlabs\GUIAdmin\Contracts\Elements\ButtonGroupContract;
