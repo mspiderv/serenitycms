@@ -147,7 +147,7 @@ return [
         |--------------------------------------------------------------------------
         |
         */
-        'sortURL' => '/~orderable-model/save-sort',
+        'sortURL' => '/~~~orderable-model/save-sort',
 
     ],
 

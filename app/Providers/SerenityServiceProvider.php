@@ -14,7 +14,7 @@ class SerenityServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        require app_path('start.php');
+        require_once app_path('start.php');
     }
 
     /**

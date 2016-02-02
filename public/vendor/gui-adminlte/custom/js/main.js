@@ -7,8 +7,8 @@ function assetsLoaded()
         var radioCfg = cfg['radio'];
 
 		$('input').iCheck({
-	        checkboxClass: 'icheckbox_' + checkboxCfg.class,
-	        radioClass: 'iradio_' + radioCfg.class
+	        checkboxClass: 'icheckbox_' + (typeof checkboxCfg == "undefined" ? "" : checkboxCfg.class),
+	        radioClass: 'iradio_' + (typeof radioCfg == "undefined" ? "" : radioCfg.class)
 	    });
 	}
 

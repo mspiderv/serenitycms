@@ -18,5 +18,8 @@ App::adminRoutes('Serenity\Http\Controllers\Admin', function() {
 
     // Regions
     Route::resource('regions', 'RegionsController', ['all']);
+    
+    // Districts
+    Route::resource('districts', 'DistrictsController', ['except' => ['index']]);
 
 });

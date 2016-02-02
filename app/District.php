@@ -3,19 +3,23 @@
 namespace Serenity;
 
 use Illuminate\Database\Eloquent\Model;
+use Serenity\Contracts\CRUDModelContract;
+use Serenity\Traits\CRUDModelTrait;
 use Vitlabs\OrderableModel\Contracts\OrderableModelContract;
 use Vitlabs\OrderableModel\Traits\OrderableModelTrait;
 
-class District extends Model implements OrderableModelContract
+class District extends Model implements OrderableModelContract, CRUDModelContract
 {
-    use OrderableModelTrait;
-
-	/**
-     * The database table used by the model.
+    use CRUDModelTrait, OrderableModelTrait;
+    
+    /**
+     * Validation rules for create and update operations
      *
-     * @var string
+     * @var array
      */
-    protected $table = 'districts';
+    public static $rules = [
+        'name' => 'required',
+    ];
 
     /**
      * Get the region that consists the district.

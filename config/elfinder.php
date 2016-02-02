@@ -26,10 +26,10 @@ return array(
     |    ]
     */
     'disks' => [
-        'upload' => [
-            'URL' => 'upload',
-            'alias' => 'Local storage',
-        ]
+        'uploads' => [
+            'URL' => '/uploads',
+            'alias' => 'Uploads',
+        ],
     ],
 
     /*
@@ -42,7 +42,7 @@ return array(
     */
 
     'route' => [
-        'prefix' => 'admin/elfinder',
+        'prefix' => '~~~elfinder',
         'middleware' => null, //Set to null to disable middleware filter
     ],
 

@@ -2,44 +2,26 @@
 
 namespace Serenity\Http\Controllers\Admin;
 
-use GUI;
+use Vitlabs\GUICore\Facades\Generator as GUI;
+
 use Serenity\Region;
-use Illuminate\Http\Request;
-use Serenity\Http\Controllers\Traits\CRUDTrait;
+use Illuminate\Database\Eloquent\Model;
+use Serenity\Traits\CRUDControllerTrait;
 use Vitlabs\GUIAdmin\Contracts\Elements\TableContract;
-use Vitlabs\GUIAdmin\Contracts\Elements\BoxContract;
-use Vitlabs\GUIAdmin\Contracts\Elements\ButtonGroupContract;
 use Vitlabs\GUICore\Contracts\Components\ContainerElement;
-use Vitlabs\GUIAdmin\Contracts\FormElements\SubmitContract;
 use Vitlabs\GUIAdmin\Contracts\FormElements\FormContract;
 
 class RegionsController extends Controller
 {
-    use CRUDTrait;
+    use CRUDControllerTrait;
 
     protected $basicRoute = 'admin.regions';
     protected $model = '\Serenity\Region';
 
-    protected function getEntitySingularName()
-    {
-        return "Region";
-    }
-
-    protected function getEntityPluralName()
-    {
-        return "Regions";
-    }
-
-    protected function getTableColumns()
-    {
-        return [ 'Name' ];
-    }
-
     protected function getTableRowData($region)
     {
         return [
-            $region->name
-            //'<a href="' . $this->route('edit', $region->getKey()) . '">' . $region->name . '</a>'
+            $this->link($region->name, 'edit', $region->id)
         ];
     }
 
@@ -48,7 +30,7 @@ class RegionsController extends Controller
         foreach ($region->districts as $district)
         {
             $table->addRow([
-                $district->name,
+                '<a href="' . route('admin.districts.show', $district->id) . '">' . $district->name . '</a>',
                 ''
             ])
             ->level(1)
@@ -58,53 +40,18 @@ class RegionsController extends Controller
         }
     }
 
-    protected function generateUniversalForm(FormContract $form, $id = null)
+    protected function generateUniversalForm(FormContract $form, Model $model = null)
     {
-        $model = Region::findOrNew($id);
-
         GUI::input()
             ->label("Name")
             ->name('name')
-            ->value(is_null($model->name) ? '' : $model->name)
+            ->value(is_null($model) ? '' : $model->name)
             ->to($form);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    protected function generateShowView(ContainerElement $container, Model $model)
     {
-        $object = new Region;
-        $object->fill($request->all());
-        $object->save();
-
-        return $this->redirect('index');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        try
-        {
-            $object = Region::findOrFail($id);
-            $object->fill($request->all());
-            $object->save();
-
-            return $this->redirect('index');
-        }
-        catch (\Exception $e)
-        {
-            return back()->withErrors("ID neexistuje");
-        }
+        $container->add(GUI::tag('p', "<strong>Name:</strong> {$model->name}"));
     }
 
 }

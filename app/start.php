@@ -20,7 +20,7 @@ App::adminWindow(function($window) {
         $sub->link('Výpis typov stránok', URL::to('admin/page-types'), 'fa fa-list');
         $sub->link('Vytvoriť typ stránky', URL::to('admin/page-types/add'), 'fa fa-plus-square');
     });
-    $menu->link('Regióny', route('admin.regions.index'), 'fa fa-globe');
+    $menu->link('Kraje', route('admin.regions.index'), 'fa fa-globe');
 
 });
 
@@ -41,9 +41,11 @@ App::architectWindow(function($window) {
 
     $menu->link('Hlavný panel', route('admin.architect.dashboard'), 'fa fa-dashboard');
     $menu->link('Moduly', route('admin.architect.modules.index'), 'fa fa-puzzle-piece');
-    $menu->link('Typy obsahu', route('admin.architect.content-types.index'), 'fa fa-file', function($sub) {
+    /*$menu->link('Typy obsahu', route('admin.architect.content-types.index'), 'fa fa-file', function($sub) {
         $sub->link('Výpis typov obsahu', route('admin.architect.content-types.index'), 'fa fa-list');
         $sub->link('Vytvoriť typ obsahu', route('admin.architect.content-types.create'), 'fa fa-plus-square');
-    });
+    });*/
+    $menu->link('Typy obsahu', route('admin.architect.content-types.index'), 'fa fa-file');
+    $menu->link('Premenné typov obsahu', route('admin.architect.content-type-variables.index'), 'fa fa-file');
 
 });

@@ -169,6 +169,7 @@ return [
         Serenity\Providers\AuthServiceProvider::class,
         Serenity\Providers\EventServiceProvider::class,
         Serenity\Providers\RouteServiceProvider::class,
+        Serenity\Providers\HelperServiceProvider::class,
         Serenity\Providers\SerenityServiceProvider::class,
 
         // Modules

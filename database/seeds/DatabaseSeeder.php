@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RegionsDistrictsSeeder::class);
         $this->call(AdminsSeeder::class);
+        $this->call(ContentTypesSeeder::class);
+        $this->call(ContentsSeeder::class);
 
         Model::reguard();
     }

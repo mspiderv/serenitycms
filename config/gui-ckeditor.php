@@ -9,7 +9,7 @@ return [
     | http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-filebrowserBrowseUrl
     |
     */
-    'browseUrl' => 'admin/elfinder/ckeditor',
+    'browseUrl' => '~~~elfinder/ckeditor',
 
     /*
     |--------------------------------------------------------------------------

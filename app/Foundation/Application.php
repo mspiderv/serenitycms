@@ -56,7 +56,7 @@ class Application extends LaravelApplication
         // Get admin window instance
         $adminWindow = $this->make('adminWindow');
 
-        if ($callable == null)
+        if (is_null($callable))
         {
             return $adminWindow;
         }
@@ -109,7 +109,7 @@ class Application extends LaravelApplication
         // Get architect window instance
         $architectWindow = $this->make('architectWindow');
 
-        if ($callable == null)
+        if (is_null($callable))
         {
             return $architectWindow;
         }

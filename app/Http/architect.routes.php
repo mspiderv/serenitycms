@@ -17,5 +17,6 @@ App::architectRoutes('Serenity\Http\Controllers\Architect', function() {
 
     // Content Types
     Route::resource('content-types', 'ContentTypesController');
+    Route::resource('content-type-variables', 'ContentTypeVariablesController');
 
 });
