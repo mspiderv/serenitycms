@@ -7,13 +7,13 @@ input:-webkit-autofill:focus {
 
 /* Login screen */
 body.login-page {
-	background-size: 100%;
+    background-size: 100%;
 }
 
 /* iCheck fix */
 .checkbox label,
 .radio label {
-	padding-left: 0;
+    padding-left: 0;
 }
 
 /* Datatables */
@@ -28,4 +28,14 @@ body.login-page {
 }
 div.dataTables_length select {
     width: 100px!important;
+}
+
+/* Custom Elements Styles */
+.width-limit {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fefefe;
+    border: 1px solid #D2D6DE;
+    padding: 15px;
 }

@@ -1,3 +1,25 @@
+ZOZNAMY
+=======
+ - atribut "listable" v entite ContentType je nepotrebny
+ - dat ho prec
+
+ - bude entita "List"
+ - ona bude obsahovat "zoznam povolenych typov"
+    - napr. mam zoznam "Novinky", ktoreho polozky mozu byt typy obsahu "clanok", "podstranka", "info-text" ...
+
+ - takze jeden "content" moze byt aj vo viacerych zoznamoch
+    - mozno pridat moznost si pre "zoznam" navolit ci podporuje duplicity, resp. ci jeho prvky mozu byt aj v inych zoznamoch a pod.
+
+ - takze pre kazdy zoznam si budem moct navolit ake typy obsahu v nom mozu byt
+ - vo vypise ale nebudem vediet ktory atribut pouzit na 
+
+LOCKABLE
+========
+ - tak ako mam OrderableModel by som mohol spravit LockableModel alebo ProtectableModel
+ - to bude interface predpisujuci metody + spravim k nemu implementaciu traitom
+ - ucelom bude zamedzovat vymazavanie chranenych udajov
+    - napr. nie je mozne zmazat "homepage" a pod.
+
 Co chcem spracovat na GUI
 =========================
 [1. modals]
@@ -17,7 +39,9 @@ Co chcem spracovat na CMS
 CRUD
  - translations, confirms, fully-customizable
 Content Types
- - variable types
+ - variables
+    - variable fields
+ - relations
 Contents
  - pages
  - panels

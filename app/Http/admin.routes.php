@@ -16,10 +16,4 @@ App::adminRoutes('Serenity\Http\Controllers\Admin', function() {
     // Dashboard
     Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@dashboard']);
 
-    // Regions
-    Route::resource('regions', 'RegionsController', ['all']);
-    
-    // Districts
-    Route::resource('districts', 'DistrictsController', ['except' => ['index']]);
-
 });

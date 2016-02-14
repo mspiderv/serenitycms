@@ -35,7 +35,12 @@ $factory->define(Serenity\ContentTypeRelation::class, function (Faker\Generator 
 
 $factory->define(Serenity\ContentTypeVariable::class, function (Faker\Generator $faker) {
     return [
+        'field' => $faker->randomElement(Fields::getRegistered()),
         'variable' => $faker->unique->word,
+        'data_type' => $faker->randomElement(array_collapse(get_data_types())),
+        'constraint' => '',
+        'nullable' => true,
+        'unsigned' => false,
     ];
 });
 
@@ -53,21 +58,5 @@ $factory->define(Serenity\Page::class, function (Faker\Generator $faker) {
 $factory->define(Serenity\Panel::class, function (Faker\Generator $faker) {
     return [
         'code' => $faker->unique->word,
-    ];
-});
-
-
-
-// TODO: delete
-$factory->define(Serenity\Region::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->country,
-    ];
-});
-
-// TODO: delete
-$factory->define(Serenity\District::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->city,
     ];
 });

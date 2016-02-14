@@ -1,13 +1,13 @@
 <?php
 
-namespace Serenity\Traits;
+namespace Serenity\CRUD\Traits;
 
 use Vitlabs\GUICore\Facades\Generator as GUI;
 use Illuminate\Support\Facades\Route;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Lang;
 
-use Serenity\Contracts\CRUDModelContract;
+use Serenity\CRUD\Contracts\CRUDModelContract;
 use Serenity\Exceptions\NotImplementedException;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -205,9 +205,14 @@ trait CRUDControllerTrait
         return in_array($interface, class_implements($this->getModel()));
     }
 
-    protected function canSort()
+    protected function canOrder()
     {
         return $this->modelImplements(OrderableModelContract::class);
+    }
+
+    protected function isIndexTableSortable()
+    {
+        return ( ! $this->canOrder());
     }
 
     protected function getEntitySingularName()
@@ -267,6 +272,20 @@ trait CRUDControllerTrait
         }
     }
 
+    protected function generateDeleteButton(ContainerElement $container, $id)
+    {
+        if ($this->isAllowedDestroy())
+        {
+            // TODO: dorobit confirm
+            $button = GUI::button($this->trans('button.delete'), 'danger')
+                ->attr('href', $this->route('destroy', $id))
+                ->to($container);
+
+            // Customize "Delete" button
+            //$this->customizeDeleteButton($button); // TODO
+        }
+    }
+
     protected function generateCreateForm(FormContract $form)
     {
         return $this->generateUniversalForm($form, null);
@@ -275,6 +294,39 @@ trait CRUDControllerTrait
     protected function generateEditForm(FormContract $form, Model $model)
     {
         return $this->generateUniversalForm($form, $model);
+    }
+
+    protected function getContentWrapper()
+    {
+        $wrapper = GUI::tagContainer('div');
+        $wrapper->addClass('width-limit');
+
+        return $wrapper;
+    }
+
+    protected function fillIndexTable(TableContract $table)
+    {
+        foreach ($this->getTableRows() as $row)
+        {
+            $rowData = $this->getTableRowData($row);
+            $rowData[] = $this->getRowOptions($row) . $this->getRowExtraOptions($row);
+
+            $rowElement = $table->addRow($rowData);
+
+            if ($this->canOrder())
+            {
+                $rowElement
+                    ->id($this->getRowID($row))
+                    ->sortgroup($this->getSortGroup())
+                    ->model($this->getModel());
+            }
+
+            // Customize table row
+            $this->customizeTableRow($row);
+
+            // Generate subrows
+            $this->generateSubRows($table, $row);
+        }
     }
 
     /**
@@ -312,38 +364,19 @@ trait CRUDControllerTrait
         // Customize box
         $this->customizeIndexBox($box);
 
-        // Table
-        $columns = $this->getTableColumns();
-
+        // Create table
         $table = GUI::table()
             ->to($box)
-            ->addColumns($columns);
+            ->addColumns($this->getTableColumns());
+
+        // Can we sort table rows ?
+        $table->sortable($this->isIndexTableSortable());
 
         // Customize table
         $this->customizeTable($table);
 
         // Add rows
-        foreach ($this->getTableRows() as $row)
-        {
-            $rowData = $this->getTableRowData($row);
-            $rowData[] = $this->getRowOptions($row) . $this->getRowExtraOptions($row);
-
-            $rowElement = $table->addRow($rowData);
-
-            if ($this->canSort())
-            {
-                $rowElement
-                    ->id($this->getRowID($row))
-                    ->sortgroup($this->getSortGroup())
-                    ->model($this->getModel());
-            }
-
-            // Customize table row
-            $this->customizeTableRow($row);
-
-            // Generate subrows
-            $this->generateSubRows($table, $row);
-        }
+        $this->fillIndexTable($table);
 
         // Add buttons to page bottom
         $buttonGroup->to($this->window);
@@ -362,9 +395,12 @@ trait CRUDControllerTrait
         // Set title
         $this->title($this->getCreateTitle());
 
+        // Get content wrapper
+        $wrapper = $this->getContentWrapper()->to($this->window);
+
         // Create form
         $form = GUI::form([ 'route' => $this->getFullRouteName('store') ])
-            ->to($this->window);
+            ->to($wrapper);
 
         // Show fields
         $this->generateCreateForm($form);
@@ -437,16 +473,18 @@ trait CRUDControllerTrait
         catch (ModelNotFoundException $e)
         {
             Flash::error($this->trans('error.notFound'));
-            
+
             return back();
         }
 
         // Set title
         $this->title($this->getShowTitle());
 
+        // Get content wrapper
+        $wrapper = $this->getContentWrapper()->to($this->window);
+
         // Generate show view
-        $showContainer = GUI::container()->to($this->window);
-        $this->generateShowView($showContainer, $model);
+        $this->generateShowView($wrapper, $model);
 
         // Buttons
         $buttonGroup = GUI::buttonGroup()
@@ -462,6 +500,9 @@ trait CRUDControllerTrait
             // Customize "Edit" button
             $this->customizeEditButton($button);
         }
+
+        // Add "Delete" button
+        $this->generateDeleteButton($buttonGroup, $id);
 
         // Add "Back" button
         $this->generateBackButton($buttonGroup);
@@ -489,16 +530,19 @@ trait CRUDControllerTrait
         catch (ModelNotFoundException $e)
         {
             Flash::error($this->trans('error.notFound'));
-            
+
             return back();
         }
 
         // Set title
         $this->title($this->getEditTitle());
 
+        // Get content wrapper
+        $wrapper = $this->getContentWrapper()->to($this->window);
+
         // Create form
         $form = GUI::form([ 'route' => [ $this->getFullRouteName('update'), $id ] ])
-            ->to($this->window);
+            ->to($wrapper);
 
         // Show fields
         $this->generateEditForm($form, $model);
@@ -513,6 +557,9 @@ trait CRUDControllerTrait
 
         // Customize "Edit" button
         $this->customizeEditSubmit($button);
+
+        // Add "Delete" button
+        $this->generateDeleteButton($buttonGroup, $id);
 
         // Add "Back" button
         $this->generateBackButton($buttonGroup);
@@ -556,7 +603,7 @@ trait CRUDControllerTrait
             catch (ModelNotFoundException $e)
             {
                 Flash::error($this->trans('error.notFound'));
-            
+
                 return back();
             }
         }
@@ -578,13 +625,13 @@ trait CRUDControllerTrait
         {
             Flash::success($this->trans('message.destroy'));
 
-            return back();
+            return $this->redirect('index');
         }
         else
         {
             Flash::error($this->trans('error.notFound'));
 
-            return back();
+            return $this->redirect('index');
         }
     }
 }

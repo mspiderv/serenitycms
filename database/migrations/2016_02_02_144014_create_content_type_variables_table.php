@@ -16,9 +16,12 @@ class CreateContentTypeVariablesTable extends Migration
             $table->increments('id');
             $table->integer('order')->unsigned();
             $table->integer('content_type_id')->unsigned();
+            $table->string('field', 255);
             $table->string('variable', 255);
-            // TODO: field (vizualny prvok na upravu hodnoty premennej) - bud to bdue foreign key na nejaku tabulku, alebo nieco ine (nazov triedy ?)
-            // TODO: data type - datovy typ na ulozenie hodnoty premennej v DB
+            $table->string('data_type', 255);
+            $table->string('constraint', 255);
+            $table->boolean('nullable');
+            $table->boolean('unsigned');
 
             $table->foreign('content_type_id')
                 ->references('id')->on('content_types')

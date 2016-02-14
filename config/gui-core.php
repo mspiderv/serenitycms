@@ -9,7 +9,7 @@ return [
     | Example: App\Concrete\GUIGenerator
     |
     */
-    'generatorImplementation' => 'Serenity\Concrete\GUIGenerator',
+    'generatorImplementation' => 'Serenity\GUI\Generator',
 
     /*
     |--------------------------------------------------------------------------

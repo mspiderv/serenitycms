@@ -6,20 +6,14 @@ use DB;
 use Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Serenity\Contracts\CRUDModelContract;
-use Serenity\Traits\CRUDModelTrait;
+use Serenity\CRUD\Contracts\CRUDModelContract;
+use Serenity\CRUD\Traits\CRUDModelTrait;
+use Vitlabs\OrderableModel\Contracts\OrderableModelContract;
+use Vitlabs\OrderableModel\Traits\OrderableModelTrait;
 
-class ContentType extends Model implements CRUDModelContract
+class ContentType extends AbstractModel implements CRUDModelContract, OrderableModelContract
 {
-    use CRUDModelTrait;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
+    use CRUDModelTrait, OrderableModelTrait;
 
     /**
      * Prefix of the content type data tables.
@@ -37,10 +31,10 @@ class ContentType extends Model implements CRUDModelContract
         'name' => 'required|max:255',
         'pageable' => 'boolean',
         'panelable' => 'boolean',
-        'page_template' => 'max:255',
-        'panel_template' => 'max:255',
-        'page_class' => 'max:255',
-        'panel_class' => 'max:255',
+        'page_template' => 'max:255|required_with:pageable',
+        'panel_template' => 'max:255|required_with:panelable',
+        'page_class' => 'max:255|required_with:pageable',
+        'panel_class' => 'max:255|required_with:panelable',
     ];
 
     /**
@@ -50,37 +44,22 @@ class ContentType extends Model implements CRUDModelContract
     {
         return $this->hasMany('Serenity\ContentTypeVariable');
     }
-
-    protected function setPageableAttribute($value)
-    {
-        $this->attributes['pageable'] = (bool) $value;
-    }
-
-    protected function setPanelableAttribute($value)
-    {
-        $this->attributes['panelable'] = (bool) $value;
-    }
-
+    
     /**
-     * The "booting" method of the model.
+     * Register model event handlers.
      *
      * @return void
      */
-    protected static function boot()
+    protected static function registerEventHandlers()
     {
-        /**
-         * Boot model.
-         */
-        parent::boot();
-
-        /**
-         * Register created event handler for create content type data table.
-         */
+        // Register created event handler for create content type data table.
         ContentType::created(function ($contentType)
         {
-            Schema::create(ContentType::DATA_TABLE_PREFIX . $contentType->getKey(), function (Blueprint $table) use ($contentType)
+            Schema::create(ContentType::DATA_TABLE_PREFIX . $contentType->getKey(), function(Blueprint $table) use ($contentType)
             {
                 $table->integer('id')->unsigned();
+                
+                $table->primary('id');
 
                 $table->foreign('id')
                     ->references($contentType->getKeyName())
@@ -90,27 +69,10 @@ class ContentType extends Model implements CRUDModelContract
             });
         });
 
-        /**
-         * Register deleting event handler for delete content type data table.
-         */
-        ContentType::deleting(function ($contentType)
+        // Register deleting event handler for delete content type data table.
+        ContentType::deleting(function($contentType)
         {
             Schema::drop(ContentType::DATA_TABLE_PREFIX . $contentType->getKey());
-        });
-    }
-
-    /**
-     * Perform a model insert operation.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  array  $options
-     * @return bool
-     */
-    protected function performInsert(Builder $query, array $options = [])
-    {
-        DB::transaction(function() use ($query, $options)
-        {
-            parent::performInsert($query, $options);
         });
     }
 }

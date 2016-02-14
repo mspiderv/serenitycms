@@ -1,9 +1,9 @@
 <?php
 
-namespace Serenity\Concrete;
+namespace Serenity\GUI;
 
 // Generator class definition
-class GUIGenerator
+class Generator
 extends \Vitlabs\GUICore\AbstractGenerator
 implements
 

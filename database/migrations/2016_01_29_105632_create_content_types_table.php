@@ -15,6 +15,7 @@ class CreateContentTypesTable extends Migration
     {
         Schema::create('content_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('order')->unsigned();
             $table->string('name', 255);
             $table->boolean('pageable');
             $table->boolean('panelable');

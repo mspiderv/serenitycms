@@ -20,7 +20,6 @@ App::adminWindow(function($window) {
         $sub->link('Výpis typov stránok', URL::to('admin/page-types'), 'fa fa-list');
         $sub->link('Vytvoriť typ stránky', URL::to('admin/page-types/add'), 'fa fa-plus-square');
     });
-    $menu->link('Kraje', route('admin.regions.index'), 'fa fa-globe');
 
 });
 

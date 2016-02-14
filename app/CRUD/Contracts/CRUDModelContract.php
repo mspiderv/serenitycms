@@ -1,6 +1,6 @@
 <?php 
 
-namespace Serenity\Contracts;
+namespace Serenity\CRUD\Contracts;
 
 use Illuminate\Http\Request;
 

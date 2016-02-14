@@ -1,6 +1,6 @@
 <?php
 
-namespace Serenity\Traits;
+namespace Serenity\CRUD\Traits;
 
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ trait CRUDModelTrait
      */
     public static function getSingularName()
     {
-        return trans_model(__CLASS__, 'name.singular');
+        return trans_class(__CLASS__, 'name.singular');
     }
 
     /**
@@ -21,7 +21,7 @@ trait CRUDModelTrait
      */
     public static function getPluralName()
     {
-        return trans_model(__CLASS__, 'name.plural');
+        return trans_class(__CLASS__, 'name.plural');
     }
 
     /**

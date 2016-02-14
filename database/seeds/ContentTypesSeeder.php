@@ -13,7 +13,7 @@ class ContentTypesSeeder extends Seeder
     {
         $contentTypes = 3;
         $contentTypeRelations = 3;
-        $contentTypeVariables = 3 * $contentTypes;
+        $contentTypeVariables = 2 * $contentTypes;
 
         factory(Serenity\ContentType::class, $contentTypes)->create();
 

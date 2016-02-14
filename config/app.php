@@ -170,7 +170,8 @@ return [
         Serenity\Providers\EventServiceProvider::class,
         Serenity\Providers\RouteServiceProvider::class,
         Serenity\Providers\HelperServiceProvider::class,
-        Serenity\Providers\SerenityServiceProvider::class,
+		Serenity\Providers\SerenityServiceProvider::class,
+        Serenity\Providers\FieldsServiceProvider::class,
 
         // Modules
         Vitlabs\Modules\Providers\ModulesServiceProvider::class,
@@ -229,6 +230,9 @@ return [
         // Vitlabs
         'GUI'       => Vitlabs\GUICore\Facades\Generator::class,
         'Modules'   => Vitlabs\Modules\Facades\Modules::class,
+
+        // Serenity
+        'Fields'    => Serenity\Fields\Facades\FieldsManagerFacade::class,
 
     ],
 

@@ -65,7 +65,7 @@ $(function() {
         $('.datatable tbody tr').removeClass(datatable.unactive_class);
     }
 
-    datatable.findSlaves = function(element)
+    datatable.findNested = function(element)
     {
         var cur_level = element.data('level');
         if(typeof cur_level == 'undefined') cur_level = 0;
@@ -89,7 +89,7 @@ $(function() {
     .on('mouseover', function() {
         $('.datatable tbody tr[data-sortgroup]').removeClass(datatable.sortgroupped_class);
         $(this).addClass(datatable.sortgroupped_class + ' ' + datatable.sortgroupped_class_main);
-        datatable.findSlaves($(this)).addClass(datatable.sortgroupped_class);
+        datatable.findNested($(this)).addClass(datatable.sortgroupped_class);
         if($('tr[data-sortgroup="' + $(this).data('sortgroup') + '"]').length > 1)
         {
             $(this).parent('tbody').find('tr td .handle').on('mousedown', function(){
@@ -112,15 +112,18 @@ $(function() {
                     datatable.main_row = $(this).find('tr[data-sortgroup].' + datatable.sortgroupped_class + '.' + datatable.sortgroupped_class_main);
                     datatable.sub_rows = $(this).find('tr[data-sortgroup].' + datatable.sortgroupped_class + ':not(.' + datatable.sortgroupped_class_main + ')');
                     datatable.this_prev = $($(ui.item).prevAll('tr[data-sortgroup="' + $(ui.item).data('sortgroup') + '"]')[0]);
-                    datatable.this_prev_childs = datatable.findSlaves(datatable.this_prev);
+                    datatable.this_prev_childs = datatable.findNested(datatable.this_prev);
                     datatable.this_next = $($(ui.item).nextAll('tr[data-sortgroup="' + $(ui.item).data('sortgroup') + '"]')[0]);
-                    datatable.this_next_childs = datatable.findSlaves(datatable.this_next);
+                    datatable.this_next_childs = datatable.findNested(datatable.this_next);
+                    datatable.last_row = sortable_items_object.last();
+                    datatable.last_childs = datatable.findNested(datatable.last_row);
                 },
                 update: function(event, ui)
                 {
                     datatable.main_row.after(datatable.sub_rows);
                     datatable.this_prev.after(datatable.this_prev_childs);
                     datatable.this_next.after(datatable.this_next_childs);
+                    datatable.last_row.after(datatable.last_childs);
 
                     var result = $(this).sortable('toArray', {
                         'attribute': 'data-id'
@@ -143,6 +146,7 @@ $(function() {
                             }
                         }
                     });
+
                     function getNode(id)
                     {
                         for(var node in aoData)
@@ -184,32 +188,6 @@ $(function() {
     .on('mouseout', function(){
         $('.datatable tbody tr[data-sortgroup]').removeClass(datatable.sortgroupped_class + ' ' + datatable.sortgroupped_class_main);
     });
-
-    /* Level Icons Generation */
-    /*$('table tr[data-level]').each(function() {
-        var tr = $(this);
-        var level = parseInt(tr.data('level'));
-
-        if(level > 0)
-        {
-            var td = tr.children('td:first-child');
-            var handle = td.find('.handle')[0];
-            var handle_html = (typeof handle == 'undefined') ? '' : handle.outerHTML;
-            var pre = '';
-
-            for(level; level > 0; level--)
-            {
-                pre += '<span class="pre fa fa-angle-right"></span>';
-            }
-
-            if (typeof handle != 'undefined')
-            {
-                handle.remove();
-            }
-
-            td.html(handle_html + pre + td.html());
-        }
-    });*/
 
     datatable.languages = new Array();
 

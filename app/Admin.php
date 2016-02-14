@@ -3,21 +3,20 @@
 namespace Serenity;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class Admin extends Model implements AuthenticatableContract, CanResetPasswordContract
+class Admin extends AbstractModel implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
 
     /**
-     * The database table used by the model.
+     * Indicates if the model should be timestamped.
      *
-     * @var string
+     * @var bool
      */
-    protected $table = 'admins';
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.

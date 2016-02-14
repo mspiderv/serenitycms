@@ -2,20 +2,12 @@
 
 namespace Serenity;
 
-use Illuminate\Database\Eloquent\Model;
-use Serenity\Contracts\CRUDModelContract;
-use Serenity\Traits\CRUDModelTrait;
+use Serenity\CRUD\Contracts\CRUDModelContract;
+use Serenity\CRUD\Traits\CRUDModelTrait;
 
-class Panel extends Model implements CRUDModelContract
+class Panel extends AbstractModel implements CRUDModelContract
 {
     use CRUDModelTrait;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * Validation rules for create and update operations

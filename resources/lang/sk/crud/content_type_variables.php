@@ -7,7 +7,7 @@ return [
         'edit' => 'Upraviť premennú',
     ],
 
-    'column' => [ 'Názov', 'Typ obsahu', 'Možnosti' ],
+    'column' => [ 'Názov', 'Možnosti' ],
 
     'button' => [
         'index' => 'Späť na premenné',
